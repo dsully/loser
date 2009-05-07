@@ -1,0 +1,112 @@
+<div>
+  <table>
+    <tr>
+      <td valign="top">
+        <div id="choicesX"></div>
+        <div id="legend" style="width:70px;height:200px;"></div>
+      </td>
+      <td>
+        <div id="chart" style="width: 850px;height: 650px;"></div>
+      </td>
+    </tr>
+  </table>
+
+  <script id="source" language="javascript" type="text/javascript">
+    var records       = <%= @data.to_json %>;
+    var previousPoint = null;
+
+    var graphOptions  = {
+      lines: { show: true },
+      points: { show: true },
+      legend: {
+        show: true,
+        noColumns: 1,
+        container: $("#legend"),
+      },
+
+      grid: {
+        clickable: true,
+        hoverable: true,
+        autoHighlight: true,
+      },
+
+      xaxis: {
+        mode: "time"
+      },
+
+      yaxis : {
+        tickFormatter: function (val, axis) {
+          return val.toFixed(axis.tickDecimals) + " lbs"
+        },
+      },
+    };
+
+    function showTooltip(x, y, contents) {
+      $('<div id="tooltip">' + contents + '</div>').css( {
+        position: 'absolute',
+        display: 'none',
+        top: y + 5,
+        left: x + 5,
+        border: '1px solid #fdd',
+        padding: '2px',
+        'background-color': '#fee',
+        opacity: 0.80
+      }).appendTo("body").fadeIn(200);
+    }
+
+    $("#chart").bind("plothover", function (event, pos, item) {
+      $("#x").text(pos.x.toFixed(2));
+      $("#y").text(pos.y.toFixed(2));
+
+      if (item) {
+        if (previousPoint != item.datapoint) {
+          previousPoint = item.datapoint;
+
+          $("#tooltip").remove();
+          var day = new Date(item.datapoint[0]);
+          var lbs = item.datapoint[1];
+
+          showTooltip(item.pageX, item.pageY, item.series.label + ": " + lbs + " lbs on " + day.toDateString());
+        }
+
+      } else {
+        $("#tooltip").remove();
+        previousPoint = null;
+      }
+    });
+
+    // hard-code color indices to prevent them from shifting.
+    var i = 0;
+    $.each(records, function(key, val) {
+      val.color = i;
+      ++i;
+    });
+
+    // insert checkboxes 
+    var choiceContainer = $("#choices");
+
+    $.each(records, function(key, val) {
+      choiceContainer.append('<br/><input type="checkbox" name="' + key + '" checked="checked" >' + val.label + '</input>');
+    });
+
+    choiceContainer.find("input").click(plotAccordingToChoices);
+
+    function plotAccordingToChoices() {
+      var data = [];
+
+      choiceContainer.find("input:checked").each(function () {
+        var key = $(this).attr("name");
+        if (key && records[key]) {
+          data.push(records[key]);
+        }
+      });
+
+      if (data.length > 0) {
+        $.plot($("#chart"), data, graphOptions);
+      }
+    }
+
+    //plotAccordingToChoices();
+    $.plot($("#chart"), records, graphOptions);
+  </script>
+</div>
