@@ -1,0 +1,60 @@
+<ul class="queryList">
+
+  <table>
+    <thead><tr>
+      <th scope="col">Round</th>
+      <th scope="col">Prize Pool</th>
+      <th scope="col">Total Pounds Lost</th>
+      <th scope="col">Total Mollies Lost</th>
+      <th scope="col">Days Complete</th>
+      <th scope="col">Days Remaining</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td><%= @round.id %></td>
+        <td>$<%= @round.total_prize_pool %></td>
+        <td><%= @round.total_lost %> lbs</td>
+        <td><%= @round.mollies %></td>
+        <td><%= @round.days_complete %> (<%= @round.days_complete_percent %>%)</td>
+        <td><%= @round.days_remaining %> (<%= @round.days_remaining_percent %>%)</td>
+    </tbody>
+  </table>
+
+  <table>
+    <thead><tr>
+      <th scope="col">Participant</th>
+      <th scope="col">Paid In</th>
+      <th scope="col">Data Points</th>
+      <th scope="col">Starting Weight</th>
+      <th scope="col">Latest Weight</th>
+      <th scope="col">Current Net Loss</th>
+      <th scope="col">Final Weight</th>
+      <th scope="col">Potential Owed</th>
+      <th scope="col">Potential Payout</th>
+    </tr></thead>
+
+    <tbody>
+      <% @round.users.each do |user| %>
+
+        <% if user.name == @user.name %>
+          <tr class="current">
+        <% else %>
+          <tr>
+        <% end %>
+
+          <td><%= user.name %></td>
+          <td>Yes</td>
+          <td><%= user.datapoints %></td>
+          <td><%= user.start_weight %></td>
+          <td><%= user.current_weight %></td>
+          <td><%= user.net_loss %> lbs</td>
+          <td><%= user.final_weight %> lbs</td>
+          <td>$<%= user.owed %></td>
+          <td>$<%= user.payout %></td>
+        </tr>
+      <% end %>
+    </tbody>
+
+  </table>
+
+</ul>
