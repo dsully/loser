@@ -1,7 +1,7 @@
 class Chart < Application
 
   def index
-    @round = Round.get(2)
+    @round = CurrentRound.instance
     @data  = []
 
     @round.users.each do |u|
