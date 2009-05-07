@@ -1,12 +1,31 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
   <head>
-    <title>Fresh Merb App</title>
+    <title>Loser</title>
+
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="/stylesheets/master.css" type="text/css" media="screen" charset="utf-8" />
+
+    <link rel="stylesheet" type="text/css" media="screen" charset="utf-8" href="/stylesheets/master.css" />
+
+    <script type="text/javascript" src="/javascripts/jquery-1.3.2.pack.js"></script>
+    <!--[if IE]><script language="javascript" type="text/javascript" src="../excanvas.pack.js"></script><![endif]-->
+    <script type="text/javascript" src="/javascripts/jquery.flot.pack.js"></script>
+    <!-- <script type="text/javascript" src="/javascripts/jquery.csstooltip.js"></script> -->
+    <!-- <script type="text/javascript" src="/javascripts/jquery.sparkline.js"></script> -->
   </head>
+
   <body>
-    <%#= message[:notice] %>
-    <%= catch_content :for_layout %>
+    <div class="container">
+      <ul id="tabnav">
+        <li class="tab"><a href="/summary/">Summary</a></li>
+        <li class="tab"><a href="/weighings/">Weighings</a></li>
+        <li class="tab"><a href="/chart/">Chart</a></li>
+      </ul>
+    </div>
+
+    <div class="container">
+      <%#= message[:notice] %>
+      <%= catch_content :for_layout %>
+    </div>
   </body>
 </html>

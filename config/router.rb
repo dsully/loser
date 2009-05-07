@@ -10,7 +10,7 @@
 #
 #   match("/books/:book_id/:action").
 #     to(:controller => "books")
-#   
+#
 # Or, use placeholders in the "to" results for more complicated routing, e.g.:
 #
 #   match("/admin/:module/:controller/:action/:id").
@@ -29,7 +29,7 @@ Merb.logger.info("Compiling routes...")
 Merb::Router.prepare do
   # RESTful routes
   # resources :posts
-  
+
   # Adds the required routes for merb-auth using the password slice
   slice(:merb_auth_slice_password, :name_prefix => nil, :path_prefix => "")
 
@@ -38,7 +38,7 @@ Merb::Router.prepare do
   # routes, you may want to comment/remove this line to prevent
   # clients from calling your create or destroy actions with a GET
   default_routes
-  
+
   # Change this for your home page to be available at /
-  # match('/').to(:controller => 'whatever', :action =>'index')
+  match('/').to(:controller => 'summary', :action =>'index')
 end
