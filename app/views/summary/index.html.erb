@@ -43,7 +43,7 @@
         <% end %>
 
           <td><%= user.name %></td>
-          <td>Yes</td>
+          <td><%= user.anted ? 'Yes' : 'No' %></td>
           <td><%= user.datapoints %></td>
           <td><%= user.start_weight %></td>
           <td><%= user.current_weight %></td>
