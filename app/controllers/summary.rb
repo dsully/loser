@@ -1,7 +1,7 @@
 class Summary < Application
 
   def index
-    @user  = User.first(:login => 'sully')
+    @user  = session.user
     @round = CurrentRound.instance
 
     render

@@ -1,8 +1,3 @@
-# Don't forget that by default the salted_user mixin is used from merb-more
-# You'll need to setup your db as per the salted_user mixin, and you'll need
-# To use :password, and :password_confirmation when creating a user
-#
-# You will need to setup your database and create a user.
 class User
   include DataMapper::Resource
 
