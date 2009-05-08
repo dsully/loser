@@ -34,7 +34,7 @@ class Round
   end
 
   def days_complete
-    ((Time.now - Time.parse(start.to_s)) / 1.day.to_i).round
+    ((Time.now - Time.parse(start.to_s)) / 1.day.to_i).round - 1
   end
 
   def days_remaining
