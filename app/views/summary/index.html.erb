@@ -49,8 +49,14 @@
           <td><%= user.current_weight %></td>
           <td><%= user.net_loss %> lbs</td>
           <td><%= user.final_weight %> lbs</td>
-          <td>$<%= user.owed %></td>
-          <td>$<%= user.payout %></td>
+
+          <% if user.owed > 0 %>
+            <td class="critical">$<%= user.owed %></td>
+            <td class="critical">$<%= user.payout %></td>
+          <% else %>
+            <td class="ok">$<%= user.owed %></td>
+            <td class="ok">$<%= user.payout %></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
