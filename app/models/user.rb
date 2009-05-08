@@ -3,8 +3,12 @@ class User
 
   property :id,     Serial
   property :login,  String, :index => true
+  property :email,  String, :index => true
   property :name,   String
   property :anted,  Boolean, :default => false
+
+  # Starting weight. Not sure if this is the right class for it.
+  property :start,  Float
 
   has n, :weighings, :order => [ :date ]
   belongs_to :round
@@ -18,7 +22,7 @@ class User
   end
 
   def start_weight
-    weighings.first.weight
+    start
   end
 
   def current_weight
