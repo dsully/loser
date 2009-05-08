@@ -20,6 +20,7 @@ Merb::BootLoader.before_app_loads do
   require 'facets/duration'
   require 'facets/enumerable/sum'
   require 'facets/numeric/round'
+  require 'facets/date'
 end
 
 Merb::BootLoader.after_app_loads do

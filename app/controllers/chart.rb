@@ -7,7 +7,7 @@ class Chart < Application
     @round.users.each do |u|
       records = u.weighings.collect do |w|
         # Javascript needs the timestamps in milliseconds.
-        [ Time.parse(w.date.to_s).to_i * 1000, (w.weight - u.start_weight).round_at(2) ]
+        [ w.date.to_time.to_i * 1000, (w.weight - u.start_weight).round_at(2) ]
       end
 
       # Start out at 0.
