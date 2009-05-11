@@ -36,7 +36,7 @@
     <tbody>
       <% @round.users.each do |user| %>
 
-        <% if user.name == @user.name %>
+        <% if user.name == session.user.name %>
           <tr class="current">
         <% else %>
           <tr>

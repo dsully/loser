@@ -1,8 +1,7 @@
 class Chart < Application
 
   def index
-    @round = CurrentRound.instance
-    @data  = []
+    @data = []
 
     @round.users.each do |u|
       records = u.weighings.collect do |w|
