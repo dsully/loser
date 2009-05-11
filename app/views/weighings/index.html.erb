@@ -1,0 +1,62 @@
+<form action="/weighings/update" method="post" name="weighin" id="weighin">
+  <table>
+    <thead><tr>
+      <th scope="col">Date</th>
+      <% @round.users.each do |user| %>
+        <th scope="col"><%= user.name %></th>
+      <% end %>
+    </tr></thead>
+
+    <tbody>
+      <% (0..@round.days_complete).each do |i| %>
+        <tr>
+          <% date = (@round.start.to_time + i.days).strftime("%Y-%m-%d") %>
+
+          <td><%= date %></td>
+
+          <% @round.users.each do |user| %>
+            <td>
+            <% if @dates[date] and @dates[date][user.name] %>
+              <% value = @dates[date][user.name] %>
+            <% else %>
+              <% value = "" %>
+            <% end %>
+
+            <% if user == session.user %>
+              <input type="text" class="text-input" size="5" name="weighings[<%= date %>]" value="<%= value %>">
+            <% else %>
+              <%= value %>
+            <% end %>
+          </td>
+
+          <% end %>
+
+        </tr>
+      <% end %>
+
+      <tr>
+        <td><!-- date --></td>
+        <% @round.users.each do |user| %>
+          <td>
+            <% if user == session.user %>
+              <input type="submit" class="button" id="update" value="Update!">
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    </tbody>
+  </table>
+</form>
+
+<script id="source" language="javascript" type="text/javascript">
+  $(document).ready(function() {
+
+    <!-- Highlight each field as it is selected. -->
+    $(':input:not([type="submit"])').each(function() {
+      $(this).focus(function() {
+        $(this).parent().addClass('current');
+      }).blur(function() {
+        $(this).parent().removeClass('current');});
+    });
+  });
+</script>
