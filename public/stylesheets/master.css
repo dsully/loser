@@ -72,7 +72,7 @@ tbody tr {
  border-bottom: 1px solid #f0f0f0;
 }
 
-tbody tr.current {
+.current {
  background-color: #e0f0f0;
 }
 
@@ -107,18 +107,6 @@ tbody td a:hover, tbody th a:hover {
  height: 20px;
  padding: 5px;
  text-align: center;
- vertical-align: middle;
- font-weight: bold;
- font: bold 13px Verdana, Arial, sans-serif;
- border-bottom: 10px solid #fff;
-}
-
-#notification-heading {
- color: #fff;
- background-color: #67c;
- height: 20px;
- padding: 5px;
- text-align: left;
  vertical-align: middle;
  font-weight: bold;
  font: bold 13px Verdana, Arial, sans-serif;
@@ -183,45 +171,4 @@ a {
   background: #fff;
   text-align: left;
   display: table;
-}
-
-/* Each expando is a qmContainer */
-.qmContainer ul {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-  font-family: Verdana, Arial, Helvetica, sans-serif;
-}
-
-.qmContainer li {
-  margin: 0 0 1px 0;
-}
-
-.qmContainer a {
-  display: block;
-  padding: 5px 10px;
-  color: #fff;
-  text-decoration: none;
-}
-
-.qmContainer a:hover {
-  color: #fff;
-  background-color: #69c;
-  text-decoration: none;
-}
-
-.qmContainer ul ul li {
-  margin: 5px 5px 5px 5px;
-}
-
-.subQueryList a {
-  color: #414141;
-  /*background-color: #369;*/
-  text-decoration: none;
-}
-
-.subQueryList a:hover {
-  color: #414141;
-  /*background-color: #69c; */
-  text-decoration: none;
 }
