@@ -48,7 +48,12 @@
           <td><%= user.start_weight %></td>
           <td><%= user.current_weight %></td>
           <td><%= user.net_loss %> lbs</td>
-          <td><%= user.final_weight %> lbs</td>
+
+          <% if user.final_weight %>
+            <td><%= user.final_weight %> lbs</td>
+          <% else %>
+            <td></td>
+          <% end %>
 
           <% if user.owed > 0 %>
             <td class="critical">$<%= user.owed %></td>
