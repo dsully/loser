@@ -1,0 +1,13 @@
+Admin:
+    * Round selection
+    * Round creation
+    * User creation
+    * User deletion
+    * Reset each user per round.
+    * Allow switching between loss & keep-it-off bets per user. 
+
+General
+    * Graph legend fixes
+    * Graph selection checkboxes
+    * User profile / password change
+    * Email to pester when a user hasn't checked in for a while
