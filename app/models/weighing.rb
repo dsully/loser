@@ -7,4 +7,8 @@ class Weighing
 
   belongs_to :user
   belongs_to :round
+
+  def ymd
+    date.to_time.strftime("%Y-%m-%d")
+  end
 end

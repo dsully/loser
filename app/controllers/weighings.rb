@@ -3,15 +3,8 @@ class Weighings < Application
   def index
     @dates = Hash.new
 
-    # XXX - should be able to be done via a join?
-    @round.users.each do |u|
-      u.weighings.each do |w|
-
-        date = w.date.to_time.strftime("%Y-%m-%d")
-
-        @dates[date] ||= Hash.new
-        @dates[date][u.name] = w.weight
-      end
+    @round.weighings.each do |w|
+      (@dates[w.ymd] ||= {})[w.user.name] = w.weight
     end
 
     render
