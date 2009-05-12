@@ -3,7 +3,7 @@
 development: &defaults
   # These are the settings for repository :default
   adapter:  mysql
-  database: loser
+  database: loser_dev
   username: loser
   password: insecure
   host: localhost
