@@ -31,7 +31,7 @@ class User
   end
 
   def current_weight
-    weighings.last.weight
+    @current ||= weighings.last.weight
   end
 
   def net_loss
