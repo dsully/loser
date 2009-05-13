@@ -100,7 +100,6 @@ tbody td a:hover, tbody th a:hover {
  text-decoration: none;
 }
 
-/* For the notification tab */
 #notice {
  color: #fff;
  background-color: #ff0000;
@@ -140,7 +139,50 @@ a {
   cursor: pointer;
 }
 
-/* Colors for the various states queries and queryMangers can be in */
+fieldset {
+  display: block;
+}
+
+div.vspacer {
+  height: 20px;
+  margin-top: 5px
+  visibility: hidden;
+}
+
+div#column-form label {
+  float: left;
+  font-weight: bold;
+  font-size: 100%;
+  margin: 0px 10px 0px 0px;
+  text-align: right;
+  vertical-align: middle;
+  width: 160px;
+}
+
+div#column-form input.text {
+  font-size: 12px;
+  font-weight: normal;
+  margin: 0px;
+  padding: 2px;
+  cursor: auto;
+}
+
+div#column-form input.submit {
+  margin: 0px 0px 0px 170px;
+  padding: 2px 4px;
+}
+
+ol {
+  -webkit-padding-start: 40px;
+  list-style-image: none;
+  list-style-type: none;
+  list-style-position: outside;
+  display: block;
+  margin: 3px 0px 15px 0px;
+  padding: 10px;
+  vertical-align: baseline;
+}
+
 .ok {
   background: #696;
   margin-right: 5px;
