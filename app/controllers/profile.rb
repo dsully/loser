@@ -8,7 +8,7 @@ class Profile < Application
     changed = false
 
     unless params["password"].empty?
-      if params["password"] == params["password_confirm"]
+      if params["password"].eql?(params["password_confirm"])
 
         session.user.password = session.user.password_confirmation = params["password"]
         changed = true
