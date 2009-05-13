@@ -8,7 +8,7 @@ module Merb
 
     # From validates_date_time - updated.
     def is_valid_date?(object)
-      return if object.empty?
+      return if object.nil?
       return object if object.is_a?(Date)
       return object.to_date if object.is_a?(Time) || object.is_a?(DateTime)
 

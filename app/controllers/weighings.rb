@@ -11,45 +11,28 @@ class Weighings < Application
   end
 
   def update
+    weighings = session.user.weighings
+
     params['weighings'].each_pair do |date, value|
+
+      # Users can't currently delete entries by clearing out the value.
+      # Not sure if this is an issue or not.
       next if value.empty?
 
+      # Can't do this in validators because assigning w.weight = value causes an
+      # implicit .to_f to be called, which will be turned into a 0.0 for most
+      # cases (ie: alpha). We want to give the user a better error message.
       unless is_numeric?(value)
-        return redirect "/weighings", :message => { :notice => "Invalid value: \"#{value}\"" }
+        return redirect "/weighings", :message => { :notice => "Invalid value: '#{value}'" }
       end
 
-      unless value.to_f.nonzero?
-        return redirect "/weighings", :message => { :notice => "You can't weigh nothing!" }
-      end
+      w        = weighings.first(:date => date) || weighings.build(:date => date, :round => @round)
+      w.weight = value
 
-      unless is_valid_date?(date)
-        return redirect "/weighings", :message => { :notice => "Invalid date: #{date}" }
-      end
-    end
-
-    params['weighings'].each_pair do |date, value|
-
-      # Users can't currently delete entries by clearing out the value. Not sure if
-      # this is an issue or not.
-      next if value.empty?
-
-      if w = session.user.weighings(:date => date).first
-
-        if w.weight != value.to_f
-          w.weight = value.to_f
-          w.save
-        end
-
-      else
-        session.user.weighings.build(
-          :date   => date,
-          :weight => value,
-          :round  => @round
-        )
+      unless w.save
+        return redirect "/weighings", :message => { :notice => w.errors.values.join("\n") }
       end
     end
-
-    session.user.save
 
     redirect "/weighings"
   end
