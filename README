@@ -11,3 +11,13 @@ Install:
     * merb-flash from: http://github.com/teamon/merb-flash/tree/master
 
 Also make sure your system Ruby has the OpenSSL extension installed.
+
+Running:
+    # This will create your schema (and delete any old one).
+    $ rake db:automigrate
+
+    # Import data from CSV. Talk to dan for the script. It's messy and shouldn't be checked in.
+    $ merb -r scripts/...
+
+    # Start merb.
+    $ merb -a thin
