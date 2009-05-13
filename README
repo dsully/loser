@@ -1,0 +1,13 @@
+Loser: Copyright 2009 Dan Sully
+
+Requirements: 
+    * Merb
+    * DataMapper
+    * DataObjects
+
+Install:
+    * gem install rake merb data_objects do_mysql do_sqlite3 datamapper facets thin launchy
+
+    * merb-flash from: http://github.com/teamon/merb-flash/tree/master
+
+Also make sure your system Ruby has the OpenSSL extension installed.

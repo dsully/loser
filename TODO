@@ -9,5 +9,4 @@ Admin:
 General
     * Graph legend fixes
     * Graph selection checkboxes
-    * User profile / password change
     * Email to pester when a user hasn't checked in for a while
