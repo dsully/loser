@@ -7,7 +7,7 @@ class Profile < Application
   def update
     changed = false
 
-    unless params["password"].empty?
+    if params["password"] and not params["password"].empty?
       if params["password"].eql?(params["password_confirm"])
 
         session.user.password = session.user.password_confirmation = params["password"]
@@ -17,7 +17,7 @@ class Profile < Application
       end
     end
 
-    unless params["email"].empty?
+    if params["email"] and not params["email"].empty?
       if session.user.email != params["email"]
         session.user.email = params["email"]
         changed = true
