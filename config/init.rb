@@ -25,4 +25,6 @@ end
 
 Merb::BootLoader.after_app_loads do
   # This will get executed after your app's classes have been loaded.
+  Merb::Mailer.config = { :sendmail_path => '/usr/sbin/sendmail' }
+  Merb::Mailer.delivery_method = :sendmail
 end

@@ -34,6 +34,10 @@ class User
     @current ||= weighings.last.weight
   end
 
+  def last_weighin_delta
+    Date.today - weighings.last.date
+  end
+
   def net_loss
     (start_weight - current_weight).round_at(2)
   end
