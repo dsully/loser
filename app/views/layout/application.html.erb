@@ -10,19 +10,18 @@
   </head>
 
   <body>
+    <% if session and session.user %>
     <div class="container">
       <ul id="tabnav">
         <li class="tab"><a href="/summary">Summary</a></li>
         <li class="tab"><a href="/weighings">Weighings</a></li>
         <li class="tab"><a href="/chart">Chart</a></li>
-
-        <% if session and session.user %>
-          <li class="tab"></li>
-          <li class="tab"><a href="/profile">Profile</a></li>
-          <li class="tab"><a href="/logout">Logout</a></li>
-        <% end %>
+        <li class="tab"></li>
+        <li class="tab"><a href="/profile">Profile</a></li>
+        <li class="tab"><a href="/logout">Logout</a></li>
       </ul>
     </div>
+    <% end %>
 
     <div class="container">
       <% if message and message[:notice] %>
