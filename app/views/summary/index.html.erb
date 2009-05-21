@@ -34,33 +34,33 @@
     </tr></thead>
 
     <tbody>
-      <% @round.users.each do |user| %>
+      <% @round.participants.each do |p| %>
 
-        <% if user.name == session.user.name %>
+        <% if p.user.name == session.user.name %>
           <tr class="current">
         <% else %>
           <tr>
         <% end %>
 
-          <td><%= user.name %></td>
-          <td><%= user.anted ? 'Yes' : 'No' %></td>
-          <td><%= user.datapoints %></td>
-          <td><%= user.start_weight %></td>
-          <td><%= user.current_weight %></td>
-          <td><%= user.net_loss %> lbs</td>
+          <td><%= p.user.name %></td>
+          <td><%= p.paid ? 'Yes' : 'No' %></td>
+          <td><%= p.datapoints %></td>
+          <td><%= p.start_weight %></td>
+          <td><%= p.current_weight %></td>
+          <td><%= p.net_loss %> lbs</td>
 
-          <% if user.final_weight %>
-            <td><%= user.final_weight %> lbs</td>
+          <% if p.final_weight(@round) %>
+            <td><%= p.final_weight(@round) %> lbs</td>
           <% else %>
             <td></td>
           <% end %>
 
-          <% if user.owed > 0 %>
-            <td class="critical">$<%= user.owed %></td>
-            <td class="critical">$<%= user.payout %></td>
+          <% if p.owed(@round) > 0 %>
+            <td class="critical">$<%= p.owed(@round) %></td>
+            <td class="critical">$<%= p.payout(@round) %></td>
           <% else %>
-            <td class="ok">$<%= user.owed %></td>
-            <td class="ok">$<%= user.payout %></td>
+            <td class="ok">$<%= p.owed(@round) %></td>
+            <td class="ok">$<%= p.payout(@round) %></td>
           <% end %>
         </tr>
       <% end %>

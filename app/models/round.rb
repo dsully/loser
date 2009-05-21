@@ -10,19 +10,19 @@ class Round
   # Total pounds to lose for this round.
   property :target, Integer
 
-  has n, :users, :order => [ :name ]
   has n, :weighings, :order => [ :date ]
+  has n, :participants
 
   def total_prize_pool
-    users.collect { |u| u.owed }.sum + (users.size * ante)
+    participants.collect { |p| p.owed(self) }.sum + (participants.size * ante)
   end
 
   def total_lost
-    users.collect { |u| u.net_loss }.sum
+    participants.collect { |p| p.net_loss }.sum
   end
 
   def sum_of_hit_target
-    users.select { |u| u.net_loss >= target }.collect { |u| u.net_loss }.sum
+    participants.select { |p| p.net_loss >= target }.collect { |p| p.net_loss }.sum
   end
 
   def mollies

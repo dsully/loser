@@ -7,14 +7,14 @@ SENDER = 'moneydown@toma.to'
 DAYS   = 3
 
 def main
-  CurrentRound.instance.users.each do |user|
+  CurrentRound.instance.participants.each do |p|
 
-    if user.last_weighin_delta > DAYS
+    if p.last_weighin_delta > DAYS
       send_mail(ReminderMailer, :notify, {
         :from    => SENDER,
-        :to      => user.email,
+        :to      => p.user.email,
         :subject => "MoneyDown: Hey - you've not entered your weight in a while.."
-      }, { :user => user })
+      }, { :user => p.user })
 
     end
   end

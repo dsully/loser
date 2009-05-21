@@ -8,6 +8,7 @@ class Weighing
 
   belongs_to :user
   belongs_to :round
+  belongs_to :participant
 
   validates_with_method :date,   :method => :validate_date
   validates_with_method :weight, :method => :validate_weight

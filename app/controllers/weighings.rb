@@ -4,15 +4,16 @@ class Weighings < Application
     @dates = Hash.new
 
     @round.weighings.each do |w|
-      (@dates[w.ymd] ||= {})[w.user.name] = w.weight
+      (@dates[w.ymd] ||= {})[w.participant.id] = w.weight
     end
 
     render
   end
 
   def update
-    weighings = session.user.weighings
+    participant = Participant.first(:user_id => session.user.id, :round_id => @round.id)
 
+    # XXXX - Need to have JS to only send the values that have actually changed.
     params['weighings'].each_pair do |date, value|
 
       # Users can't currently delete entries by clearing out the value.
@@ -26,7 +27,8 @@ class Weighings < Application
         return redirect "/weighings", :message => { :notice => "Invalid value: '#{value}'" }
       end
 
-      w        = weighings.first(:date => date) || weighings.build(:date => date, :round => @round)
+      w        = participant.weighings.first(:date => date) ||
+                 participant.weighings.build(:date => date, :round => @round, :user => session.user)
       w.weight = value
 
       unless w.save

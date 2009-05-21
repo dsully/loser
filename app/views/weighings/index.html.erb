@@ -2,8 +2,8 @@
   <table>
     <thead><tr>
       <th scope="col">Date</th>
-      <% @round.users.each do |user| %>
-        <th scope="col"><%= user.name %></th>
+      <% @round.participants.each do |p| %>
+        <th scope="col"><%= p.user.name %></th>
       <% end %>
     </tr></thead>
 
@@ -14,15 +14,15 @@
 
           <td><%= date %></td>
 
-          <% @round.users.each do |user| %>
+          <% @round.participants.each do |p| %>
             <td>
-            <% if @dates[date] and @dates[date][user.name] %>
-              <% value = @dates[date][user.name] %>
+            <% if @dates[date] and @dates[date][p.id] %>
+              <% value = @dates[date][p.id] %>
             <% else %>
               <% value = "" %>
             <% end %>
 
-            <% if user == session.user %>
+            <% if p.user == session.user %>
               <input type="text" class="text-input" size="5" name="weighings[<%= date %>]" value="<%= value %>">
             <% else %>
               <%= value %>
@@ -36,9 +36,9 @@
 
       <tr>
         <td><!-- date --></td>
-        <% @round.users.each do |user| %>
+        <% @round.participants.each do |p| %>
           <td>
-            <% if user == session.user %>
+            <% if p.user == session.user %>
               <input type="submit" class="button" id="update" value="Update!">
             <% end %>
           </td>
