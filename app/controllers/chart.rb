@@ -1,9 +1,34 @@
 class Chart < Application
 
+  # Show the graph for all participants of the current round
   def index
+    generate(@round.participants)
+    render
+  end
+
+  # Show the graph for a single participant (of a round)
+  def participant
+    generate(Array(Participant.get(params["id"])))
+    render :template => 'chart/index'
+  end
+
+  # Show the graph for a single user, across multiple rounds.
+  # TODO: Not yet working - need to collapse the lines.
+  def user
+    generate(Array(Participant.all(:user_id => params["id"])))
+    render :template => 'chart/index'
+  end
+
+  # Show the graph for all participants of a round.
+  def round
+    generate(Round.get(params["id"]).participants)
+    render :template => 'chart/index'
+  end
+
+  def generate(participants)
     @data = []
 
-    @round.participants.each do |p|
+    participants.each do |p|
       records = p.weighings.collect do |w|
         # Javascript needs the timestamps in milliseconds.
         [ w.date.to_time.to_i * 1000, (w.weight - p.start_weight).round_at(2) ]
@@ -17,7 +42,5 @@ class Chart < Application
         "data"  => records
       }
     end
-
-    render
   end
 end
