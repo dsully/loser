@@ -39,15 +39,15 @@ class Participant
     (start_weight - current_weight).round_at(2)
   end
 
-  def final_weight(round)
+  def final_weight
     current_weight if round.days_remaining <= 0
   end
 
-  def owed(round)
+  def owed
     [MIN_OWED, [((round.target - net_loss) * round.ante), MAX_OWED].min].max.to_i
   end
 
-  def payout(round)
+  def payout
     if net_loss >= round.target
       ((round.total_prize_pool * net_loss) / round.sum_of_hit_target).to_i
     else

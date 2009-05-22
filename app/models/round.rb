@@ -14,7 +14,7 @@ class Round
   has n, :participants
 
   def total_prize_pool
-    participants.collect { |p| p.owed(self) }.sum + (participants.size * ante)
+    participants.collect { |p| p.owed }.sum + (participants.size * ante)
   end
 
   def total_lost

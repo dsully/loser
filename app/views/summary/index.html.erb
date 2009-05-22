@@ -49,18 +49,18 @@
           <td><%= p.current_weight %></td>
           <td><%= p.net_loss %> lbs</td>
 
-          <% if p.final_weight(@round) %>
-            <td><%= p.final_weight(@round) %> lbs</td>
+          <% if p.final_weight %>
+            <td><%= p.final_weight %> lbs</td>
           <% else %>
             <td></td>
           <% end %>
 
-          <% if p.owed(@round) > 0 %>
-            <td class="critical">$<%= p.owed(@round) %></td>
-            <td class="critical">$<%= p.payout(@round) %></td>
+          <% if p.owed > 0 %>
+            <td class="critical">$<%= p.owed %></td>
+            <td class="critical">$<%= p.payout %></td>
           <% else %>
-            <td class="ok">$<%= p.owed(@round) %></td>
-            <td class="ok">$<%= p.payout(@round) %></td>
+            <td class="ok">$<%= p.owed %></td>
+            <td class="ok">$<%= p.payout %></td>
           <% end %>
         </tr>
       <% end %>
