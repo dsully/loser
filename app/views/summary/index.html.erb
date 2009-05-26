@@ -34,7 +34,7 @@
     </tr></thead>
 
     <tbody>
-      <% @round.participants.each do |p| %>
+      <% @round.participants.sort.each do |p| %>
 
         <% if p.user.name == session.user.name %>
           <tr class="current">

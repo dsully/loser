@@ -54,4 +54,9 @@ class Participant
       0
     end
   end
+
+  # DM can't handle sort on an association yet that doesn't have an actual column in the table.
+  def <=>(o)
+    self.user.name <=> o.user.name
+  end
 end

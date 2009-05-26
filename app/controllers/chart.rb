@@ -28,7 +28,7 @@ class Chart < Application
   def generate(participants)
     @data = []
 
-    participants.each do |p|
+    participants.sort.each do |p|
       records = p.weighings.collect do |w|
         # Javascript needs the timestamps in milliseconds.
         [ w.date.to_time.to_i * 1000, (w.weight - p.start_weight).round_at(2) ]

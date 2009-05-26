@@ -2,7 +2,7 @@
   <table>
     <thead><tr>
       <th scope="col">Date</th>
-      <% @round.participants.each do |p| %>
+      <% @round.participants.sort.each do |p| %>
         <th scope="col"><%= p.user.name %></th>
       <% end %>
     </tr></thead>
@@ -14,7 +14,7 @@
 
           <td><%= date %></td>
 
-          <% @round.participants.each do |p| %>
+          <% @round.participants.sort.each do |p| %>
             <td>
             <% if @dates[date] and @dates[date][p.id] %>
               <% value = @dates[date][p.id] %>
@@ -36,7 +36,7 @@
 
       <tr>
         <td><!-- date --></td>
-        <% @round.participants.each do |p| %>
+        <% @round.participants.sort.each do |p| %>
           <td>
             <% if p.user == session.user %>
               <input type="submit" class="button" id="update" value="Update!">
