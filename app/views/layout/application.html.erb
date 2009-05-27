@@ -14,12 +14,12 @@
     <% if session and session.user %>
     <div class="container">
       <ul id="tabnav">
-        <li class="tab"><%= link_to 'Summary', 'summary' %></li>
-        <li class="tab"><%= link_to 'Weighings', 'weighings' %></li>
-        <li class="tab"><%= link_to 'Chart', 'chart' %></li>
+        <li class="tab"><%= link_to 'Summary', '/summary' %></li>
+        <li class="tab"><%= link_to 'Weighings', '/weighings' %></li>
+        <li class="tab"><%= link_to 'Chart', '/chart' %></li>
         <li class="tab"></li>
-        <li class="tab"><%= link_to 'Profile', 'profile' %></li>
-        <li class="tab"><%= link_to 'Logout', 'logout' %></li>
+        <li class="tab"><%= link_to 'Profile', '/profile' %></li>
+        <li class="tab"><%= link_to 'Logout', '/logout' %></li>
       </ul>
     </div>
     <% end %>
