@@ -29,6 +29,7 @@
       <th scope="col">Latest Weight</th>
       <th scope="col">Current Net Loss</th>
       <th scope="col">Final Weight</th>
+      <th scope="col"></th>
       <th scope="col">Potential Owed</th>
       <th scope="col">Potential Payout</th>
     </tr></thead>
@@ -55,6 +56,8 @@
             <td></td>
           <% end %>
 
+          <td><div class="spark-<%= p.id %>"></div></td>
+
           <% if p.owed > 0 %>
             <td class="critical">$<%= p.owed %></td>
             <td class="critical">$<%= p.payout %></td>
@@ -63,6 +66,12 @@
             <td class="ok">$<%= p.payout %></td>
           <% end %>
         </tr>
+
+        <script type="text/javascript">
+          $(function() {
+            $('.spark-<%= p.id %>').sparkline([<%= p.weighings.collect { |w| w.weight }.join(',') %>]);
+          });
+        </script>
       <% end %>
     </tbody>
 
