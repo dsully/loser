@@ -8,15 +8,25 @@ class Chart < Application
 
   # Show the graph for a single participant (of a round)
   def participant
-    generate(Array(Participant.get(params["id"])))
-    render :template => 'chart/index'
+    participant = Participant.get(params["id"])
+
+    if participant.user == session.user
+      generate(Array(participant))
+      render :template => 'chart/index'
+    else
+      redirect "/chart"
+    end
   end
 
   # Show the graph for a single user, across multiple rounds.
   # TODO: Not yet working - need to collapse the lines.
   def user
-    generate(Array(Participant.all(:user_id => params["id"])))
-    render :template => 'chart/index'
+    if params["id"] == session.user.id
+      generate(Array(Participant.all(:user_id => params["id"])))
+      render :template => 'chart/index'
+    else
+      redirect "/chart"
+    end
   end
 
   # Show the graph for all participants of a round.

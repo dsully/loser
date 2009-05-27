@@ -29,5 +29,42 @@
       </ol>
 
     </fieldset>
+
+    <% if session.user.rounds.size > 1 %>
+    <fieldset>
+      <legend>Previous Rounds</legend>
+
+      <% session.user.rounds(:id.not => @round.id).first.participants(:user_id => session.user.id).each do |p| %>
+        <table style="width: 30%;">
+          <tr><th>Round:</th><td><%= p.round.id %></td></tr>
+          <tr><th>Starting Weight:</th><td><%= p.start_weight %> lbs</td></tr>
+          <tr><th>Final Weight:</th><td><%= p.final_weight %> lbs</td></tr>
+          <tr><th>Net Loss:</th><td><%= p.net_loss %> lbs</td></tr>
+
+          <tr><th>Owed:</th>
+          <% if p.owed > 0 %>
+            <td class="critical">$<%= p.owed %></td>
+          <% else %>
+            <td class="ok">$<%= p.owed %></td>
+          <% end %>
+          </tr>
+
+          <tr><th>Payout:</th>
+          <% if p.owed > 0 %>
+            <td class="critical">$<%= p.payout %></td>
+          <% else %>
+            <td class="ok">$<%= p.payout %></td>
+          <% end %>
+          </tr>
+
+          <tr><th>Chart:</th><td><%= link_to 'View', "chart/participant/#{p.id}" %></td></tr>
+        </table>
+
+        <div class="vspacer"></div>
+      <% end %>
+
+    </fieldset>
+    <% end %>
+
   </form>
 </div>
