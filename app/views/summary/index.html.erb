@@ -1,13 +1,16 @@
 <ul class="queryList">
 
   <table>
+    <colgroup span="6" width="600">
+    </colgroup>
+
     <thead><tr>
-      <th scope="col">Round</th>
-      <th scope="col">Prize Pool</th>
-      <th scope="col">Total Pounds Lost</th>
-      <th scope="col">Total Mollies Lost</th>
-      <th scope="col">Days Complete</th>
-      <th scope="col">Days Remaining</th>
+      <th scope="colgroup">Round</th>
+      <th scope="colgroup">Prize Pool</th>
+      <th scope="colgroup">Total Pounds Lost</th>
+      <th scope="colgroup">Total Mollies Lost</th>
+      <th scope="colgroup">Days Complete</th>
+      <th scope="colgroup">Days Remaining</th>
     </tr></thead>
     <tbody>
       <tr>
@@ -21,17 +24,18 @@
   </table>
 
   <table>
+    <colgroup span="7" width="600">
+      <col span="2" width="100px">
+      <col span="5">
+    </colgroup>
+
     <thead><tr>
-      <th scope="col">Participant</th>
-      <th scope="col">Paid In</th>
-      <th scope="col">Data Points</th>
-      <th scope="col">Starting Weight</th>
-      <th scope="col">Latest Weight</th>
-      <th scope="col">Current Net Loss</th>
-      <th scope="col">Final Weight</th>
-      <th scope="col"></th>
-      <th scope="col">Potential Owed</th>
-      <th scope="col">Potential Payout</th>
+      <th colspan="2" scope="colgroup">Participant</th>
+      <th scope="colgroup">Data Points</th>
+      <th scope="colgroup">Starting Weight</th>
+      <th scope="colgroup">Latest Weight</th>
+      <th scope="colgroup">Current Net Loss</th>
+      <th scope="colgroup">Owed/Paid</th>
     </tr></thead>
 
     <tbody>
@@ -43,26 +47,16 @@
           <tr>
         <% end %>
 
+          <td><span class="spark-<%= p.id %>"></span></td>
           <td><%= p.user.name %></td>
-          <td><%= p.paid ? 'Yes' : 'No' %></td>
           <td><%= p.datapoints %></td>
           <td><%= p.start_weight %></td>
           <td><%= p.current_weight %></td>
           <td><%= p.net_loss %> lbs</td>
 
-          <% if p.final_weight %>
-            <td><%= p.final_weight %> lbs</td>
-          <% else %>
-            <td></td>
-          <% end %>
-
-          <td><div class="spark-<%= p.id %>"></div></td>
-
           <% if p.owed > 0 %>
-            <td class="critical">$<%= p.owed %></td>
-            <td class="critical">$<%= p.payout %></td>
+            <td class="critical">-$<%= p.owed %></td>
           <% else %>
-            <td class="ok">$<%= p.owed %></td>
             <td class="ok">$<%= p.payout %></td>
           <% end %>
         </tr>
