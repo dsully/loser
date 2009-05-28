@@ -1,0 +1,15 @@
+<% label ||= name.capitalize %>
+
+<li class="">
+  <label for="<%= name %>"><%= label %></label>
+  <select name="<%= name %>">
+    <% range.each do |i| %>
+      <% if selected and selected == i %>
+        <option selected value="<%= i %>"><%= i %></option>
+      <% else %>
+        <option value="<%= i %>"><%= i %></option>
+      <% end %>
+    <% end %>
+  </select>
+  <div class="vspacer"></div>
+</li>

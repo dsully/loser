@@ -5,27 +5,10 @@
       <legend>Profile</legend>
 
       <ol>
-        <li class="">
-          <label for="email">Email</label>
-          <input autocomplete="off" type="text" class="text email" maxlength="255" size="30" name="email" value="<%= session.user.email %>">
-          <div class="vspacer"></div>
-        </li>
-
-        <li class="">
-          <label for="password">New Password</label>
-          <input autocomplete="off" type="password" class="text password" maxlength="255" size="30" name="password" value=""></label>
-          <div class="vspacer"></div>
-        </li>
-
-        <li class="">
-          <label for="password_confirm">Confirm New Password</label>
-          <input autocomplete="off" type="password" class="text password" maxlength="255" size="30" name="password_confirm" value=""></label>
-          <div class="vspacer"></div>
-        </li>
-
-        <li class="">
-          <input type="submit" class="submit" name="submit" value="Update!" id="submit">
-        </li>
+        <%= partial 'widgets/text_input', :name => 'email', :value => session.user.email %>
+        <%= partial 'widgets/password_input', :name => 'password', :label => 'New Password' %>
+        <%= partial 'widgets/password_input', :name => 'password_confirm', :label => 'Confirm Password' %>
+        <%= partial 'widgets/submit', :name => 'update', :value => 'Update!' %>
       </ol>
 
     </fieldset>
