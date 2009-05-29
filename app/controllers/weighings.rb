@@ -18,7 +18,7 @@ class Weighings < Application
 
       # Users can't currently delete entries by clearing out the value.
       # Not sure if this is an issue or not.
-      next if value.empty?
+      next if value.blank?
 
       # Can't do this in validators because assigning w.weight = value causes an
       # implicit .to_f to be called, which will be turned into a 0.0 for most
