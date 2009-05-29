@@ -47,7 +47,7 @@
           <tr>
         <% end %>
 
-          <td><span class="spark-<%= p.id %>"></span></td>
+          <td><span id="spark-<%= p.id %>"></span></td>
           <td><%= p.user.name %></td>
           <td><%= p.datapoints %></td>
           <td><%= p.start_weight %></td>
@@ -63,7 +63,7 @@
 
         <script type="text/javascript">
           $(function() {
-            $('.spark-<%= p.id %>').sparkline([<%= p.weighings.collect { |w| w.weight }.join(',') %>]);
+            $('#spark-<%= p.id %>').sparkline([<%= p.weighings.collect { |w| w.weight }.join(',') %>]);
           });
         </script>
       <% end %>
