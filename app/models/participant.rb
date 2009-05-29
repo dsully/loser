@@ -15,6 +15,8 @@ class Participant
 
   has n, :weighings, :order => [ :date ]
 
+  validates_is_number :start
+
   MAX_OWED = 100
   MIN_OWED = 0
 

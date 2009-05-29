@@ -34,4 +34,16 @@ class Profile < Application
       redirect "/profile", :message => { :notice => "No changes." }
     end
   end
+
+  def join
+    p = Participant.new(:user_id => session.user.id, :round_id => @round.id)
+    p.paid  = true
+    p.start = params["start"]
+
+    unless p.save
+      return redirect "/profile", :message => { :notice => p.errors.values.join("\n") }
+    end
+
+    redirect "/profile", :message => { :notice => "Joined round #{@round.id}!" }
+  end
 end
