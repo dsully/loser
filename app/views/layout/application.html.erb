@@ -7,7 +7,12 @@
     <%= css_include_tag 'master' %>
     <%= js_include_tag 'jquery-1.3.2.pack' %>
     <%= js_include_tag 'jquery.flot.pack' %>
+
+    <% if request.uri == "/summary" %>
     <%= js_include_tag 'jquery.sparkline.pack' %>
+    <%= js_include_tag 'jquery.tablesorter-2.0.3.pack' %>
+    <%= js_include_tag 'jquery.metadata-2.0.pack' %>
+    <% end %>
 
     <% if request.uri == "/admin" %>
     <%= css_include_tag 'jquery-ui-1.7.1.smoothness' %>
@@ -17,7 +22,7 @@
 
   <body>
     <% if session and session.user %>
-    <div class="container">
+    <div class="container" id="navigation-tabs">
       <ul id="tabnav">
         <li class="tab"><%= link_to 'Summary', '/summary' %></li>
         <li class="tab"><%= link_to 'Weighings', '/weighings' %></li>
@@ -31,7 +36,7 @@
     </div>
     <% end %>
 
-    <div class="container">
+    <div class="container" id="content">
       <% if message and message[:notice] %>
         <div id="notice">
           <%= message[:notice] %>

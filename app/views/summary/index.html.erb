@@ -1,74 +1,77 @@
-<ul class="queryList">
+<table id="round-metadata">
+  <colgroup span="6" width="600">
+  </colgroup>
 
-  <table>
-    <colgroup span="6" width="600">
-    </colgroup>
+  <thead><tr>
+    <th scope="colgroup">Round</th>
+    <th scope="colgroup">Prize Pool</th>
+    <th scope="colgroup">Total Pounds Lost</th>
+    <th scope="colgroup">Total Mollies Lost</th>
+    <th scope="colgroup">Days Complete</th>
+    <th scope="colgroup">Days Remaining</th>
+  </tr></thead>
+  <tbody>
+    <tr>
+      <td><%= @round.id %></td>
+      <td>$<%= @round.total_prize_pool %></td>
+      <td><%= @round.total_lost %> lbs</td>
+      <td><%= @round.mollies %></td>
+      <td><%= @round.days_complete %> (<%= @round.days_complete_percent %>%)</td>
+      <td><%= @round.days_remaining %> (<%= @round.days_remaining_percent %>%)</td>
+  </tbody>
+</table>
 
-    <thead><tr>
-      <th scope="colgroup">Round</th>
-      <th scope="colgroup">Prize Pool</th>
-      <th scope="colgroup">Total Pounds Lost</th>
-      <th scope="colgroup">Total Mollies Lost</th>
-      <th scope="colgroup">Days Complete</th>
-      <th scope="colgroup">Days Remaining</th>
-    </tr></thead>
-    <tbody>
-      <tr>
-        <td><%= @round.id %></td>
-        <td>$<%= @round.total_prize_pool %></td>
-        <td><%= @round.total_lost %> lbs</td>
-        <td><%= @round.mollies %></td>
-        <td><%= @round.days_complete %> (<%= @round.days_complete_percent %>%)</td>
-        <td><%= @round.days_remaining %> (<%= @round.days_remaining_percent %>%)</td>
-    </tbody>
-  </table>
+<table id="round-summary" class="tablesorter" cellspacing="1">
+  <colgroup span="7" width="600">
+    <col span="2" width="130px">
+    <col span="5">
+  </colgroup>
 
-  <table>
-    <colgroup span="7" width="600">
-      <col span="2" width="100px">
-      <col span="5">
-    </colgroup>
+  <thead>
+    <tr>
+      <th scope="colgroup" class="{sorter: false}"></th>
+      <th scope="colgroup" class="{sorter: 'text'}">Participant</th>
+      <th scope="colgroup" class="{sorter: 'digit'}">Data Points</th>
+      <th scope="colgroup" class="{sorter: 'digit'}">Starting Weight</th>
+      <th scope="colgroup" class="{sorter: 'digit'}">Latest Weight</th>
+      <th scope="colgroup" class="{sorter: 'digit'}">Current Net Loss</th>
+      <th scope="colgroup" class="{sorter: 'currency'}">Owed/Paid</th>
+    </tr>
+  </thead>
 
-    <thead><tr>
-      <th colspan="2" scope="colgroup">Participant</th>
-      <th scope="colgroup">Data Points</th>
-      <th scope="colgroup">Starting Weight</th>
-      <th scope="colgroup">Latest Weight</th>
-      <th scope="colgroup">Current Net Loss</th>
-      <th scope="colgroup">Owed/Paid</th>
-    </tr></thead>
+  <tbody>
+    <% @round.participants.sort.each do |p| %>
 
-    <tbody>
-      <% @round.participants.sort.each do |p| %>
-
-        <% if p.user.name == session.user.name %>
-          <tr class="current">
-        <% else %>
-          <tr>
-        <% end %>
-
-          <td><span id="spark-<%= p.id %>"></span></td>
-          <td><%= p.user.name %></td>
-          <td><%= p.datapoints %></td>
-          <td><%= p.start_weight %></td>
-          <td><%= p.current_weight %></td>
-          <td><%= p.net_loss %> lbs</td>
-
-          <% if p.owed > 0 %>
-            <td class="critical">-$<%= p.owed %></td>
-          <% else %>
-            <td class="ok">$<%= p.payout %></td>
-          <% end %>
-        </tr>
-
-        <script type="text/javascript">
-          $(function() {
-            $('#spark-<%= p.id %>').sparkline([<%= p.weighings.collect { |w| w.weight }.join(',') %>]);
-          });
-        </script>
+      <% if p.user.name == session.user.name %>
+        <tr class="current">
+      <% else %>
+        <tr>
       <% end %>
-    </tbody>
 
-  </table>
+        <td><span id="spark-<%= p.id -%>"></span></td>
+        <td><%= p.user.name -%></td>
+        <td><%= p.datapoints -%></td>
+        <td><%= p.start_weight -%></td>
+        <td><%= p.current_weight -%></td>
+        <td><%= p.net_loss -%> lbs</td>
+        <% if p.owed > 0 %>
+        <td class="critical">-$<%= p.owed -%></td>
+        <% else %>
+        <td class="ok">$<%= p.payout -%></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
 
-</ul>
+</table>
+
+<script type="text/javascript">
+
+  $(document).ready(function() {
+  <% @round.participants.each do |p| %>
+    $('#spark-<%= p.id %>').sparkline([<%= p.weighings.collect { |w| w.weight }.join(',') -%>]);
+  <% end %>
+
+  $("#round-summary").tablesorter();
+  });
+</script>
