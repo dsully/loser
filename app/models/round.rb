@@ -10,6 +10,11 @@ class Round
   # Total pounds to lose for this round.
   property :target, Integer
 
+  validates_present :start
+  validates_is_number :weeks
+  validates_is_number :ante
+  validates_is_number :target
+
   has n, :weighings, :order => [ :date ]
   has n, :participants
 

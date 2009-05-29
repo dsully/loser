@@ -11,6 +11,11 @@ class User
     :format    => "Doesn't look like an email address to me ..."
   }
 
+  validates_present :name
+  validates_present :login
+
+  property :admin,  Boolean, :default => false
+
   has n, :weighings, :order => [ :date ]
   has n, :rounds, :through => :weighings, :mutable => true
 end
