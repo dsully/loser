@@ -21,7 +21,7 @@
     <form action="/profile/join" method="post" name="join" id="join">
 
     <table style="width: 30%;">
-      <% p = Participant.all(:user_id => session.user.id + 99).last %>
+      <% p = Participant.all(:user_id => session.user.id).last %>
 
       <tr><th>Round <%= @round.id %> started on:</th><td><%= @round.start %>.</td></tr>
       <tr><th>Your starting weight:</th><td>
