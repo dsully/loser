@@ -8,7 +8,7 @@
     <%= js_include_tag 'jquery-1.3.2.pack' %>
     <%= js_include_tag 'jquery.flot.pack' %>
 
-    <% if request.uri == "/summary" %>
+    <% if request.uri == "/summary" or request.uri == "/" %>
     <%= js_include_tag 'jquery.sparkline.pack' %>
     <%= js_include_tag 'jquery.tablesorter-2.0.3.pack' %>
     <%= js_include_tag 'jquery.metadata-2.0.pack' %>
