@@ -1,0 +1,60 @@
+<div class="column" id="column-form">
+  <form action="/admin/user_create" method="post" name="create-user" id="create-user">
+    <fieldset>
+      <legend>Create User</legend>
+
+      <ol>
+        <%= partial 'widgets/text_input', :name => 'login' %>
+        <%= partial 'widgets/text_input', :name => 'name' %>
+        <%= partial 'widgets/text_input', :name => 'email' %>
+        <%= partial 'widgets/password_input', :name => 'password' %>
+        <%= partial 'widgets/password_input', :name => 'password_confirm', :label => 'Confirm Password' %>
+        <%= partial 'widgets/submit', :name => 'create-user', :value => 'Create User' %>
+      </ol>
+
+    </fieldset>
+  </form>
+</div>
+
+<div class="column" id="column-form">
+  <form action="/admin/round_create" method="post" name="create-round" id="create-round">
+    <fieldset>
+      <legend>Create Round</legend>
+
+      <ol>
+        <%= partial 'widgets/select', :name => 'weeks',  :range => (1..20) %>
+        <%= partial 'widgets/select', :name => 'target', :range => (1..20), :label => 'Target Pounds' %>
+
+        <script type="text/javascript">
+          $(document).ready(function() {
+            $('.date-pick').datepicker();
+          });
+        </script>
+
+        <li class="">
+          <label for="start">Start Date</label>
+          <input type="text" class="date-pick" name="start">
+          <div class="vspacer"></div>
+        </li>
+
+        <%= partial 'widgets/select', :name => 'ante', :range => (20..100).step(10), :label => 'Ante $' %>
+        <%= partial 'widgets/submit', :name => 'create-round', :value => 'Create Round' %>
+      </ol>
+
+    </fieldset>
+  </form>
+</div>
+
+<div class="column" id="column-form">
+  <form action="/admin/round_select" method="post" id="select-round" name="select-round">
+    <fieldset>
+      <legend>Select Current Round (use with caution!)</legend>
+
+      <ol>
+        <%= partial 'widgets/select', :name => 'round', :range => Round.all.collect { |r| r.id }, :selected => @round.id %>
+        <%= partial 'widgets/submit', :name => 'select-round', :value => 'Select Round' %>
+      </ol>
+
+    </fieldset>
+  </form>
+</div>

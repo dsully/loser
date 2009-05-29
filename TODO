@@ -1,9 +1,5 @@
 Admin:
-    * Round selection
-    * Round creation
-    * User creation
     * User deletion
-    * Reset each user per round.
     * Allow switching between loss & keep-it-off bets per user. 
 
 General
