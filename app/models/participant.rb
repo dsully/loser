@@ -15,7 +15,7 @@ class Participant
 
   has n, :weighings, :order => [ :date ]
 
-  validates_is_number :start
+  validates_with_method :start, :valid_start_weight?
 
   MAX_OWED = 100
   MIN_OWED = 0
@@ -51,6 +51,12 @@ class Participant
     else
       0
     end
+  end
+
+  def valid_start_weight?
+    return [false, "I doubt you weigh 0lbs."] if @start <= 0
+    return [false, "I doubt you weigh less than 100lbs."] if @start <= 100
+    true
   end
 
   # DM can't handle sort on an association yet that doesn't have an actual column in the table.
