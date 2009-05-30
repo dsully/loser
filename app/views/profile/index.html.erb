@@ -1,53 +1,66 @@
 <div class="column" id="column-form">
-  <fieldset>
-    <legend>Profile</legend>
+  <% if @user.id == session.user.id %>
+    <fieldset>
+      <legend>Profile</legend>
 
-    <form action="/profile/update" method="post" name="profile" id="profile">
-    <ol>
-      <%= partial 'widgets/text_input', :name => 'email', :value => session.user.email %>
-      <%= partial 'widgets/password_input', :name => 'password', :label => 'New Password' %>
-      <%= partial 'widgets/password_input', :name => 'password_confirm', :label => 'Confirm Password' %>
-      <%= partial 'widgets/submit', :name => 'update', :value => 'Update!' %>
-    </ol>
-    </form>
+      <form action="/profile/update" method="post" name="profile" id="profile">
+      <ol>
+        <%= partial 'widgets/text_input', :name => 'email', :value => @user.email %>
+        <%= partial 'widgets/password_input', :name => 'password', :label => 'New Password' %>
+        <%= partial 'widgets/password_input', :name => 'password_confirm', :label => 'Confirm Password' %>
+        <%= partial 'widgets/submit', :name => 'update', :value => 'Update!' %>
+      </ol>
+      </form>
 
-  </fieldset>
+    </fieldset>
 
-  <%# Only display if the user isn't in the round, and there's 90% of the round left %>
-  <% if @round.days_remaining_percent > 90 and not @round.participants(:user_id => session.user.id).first %>
-  <fieldset>
-    <legend>Participate</legend>
+    <%# Only display if the user isn't in the round, and there's 90% of the round left %>
+    <% if @round.days_remaining_percent > 90 and not @round.participants(:user_id => @user.id).first %>
+    <fieldset>
+      <legend>Participate</legend>
 
-    <form action="/profile/join" method="post" name="join" id="join">
+      <form action="/profile/join" method="post" name="join" id="join">
 
-    <table style="width: 30%;">
-      <% p = Participant.all(:user_id => session.user.id).last %>
+      <table style="width: 30%;">
+        <% p = Participant.all(:user_id => @user.id).last %>
 
-      <tr><th>Round <%= @round.id %> started on:</th><td><%= @round.start %>.</td></tr>
-      <tr><th>Your starting weight:</th><td>
+        <tr><th>Round <%= @round.id %> started on:</th><td><%= @round.start %>.</td></tr>
+        <tr><th>Your starting weight:</th><td>
 
-      <% if p.nil? %>
-        <input type="text" class="text-input" size="5" name="start" value="">
-      <% else %>
-        <input type="hidden" name="start" value="<%= p.weighings.last.weight %>">
-        <%= p.weighings.last.weight %>
-      <% end %>
-      &nbsp;lbs</td></tr>
+        <% if p.nil? %>
+          <input type="text" class="text-input" size="5" name="start" value="">
+        <% else %>
+          <input type="hidden" name="start" value="<%= p.weighings.last.weight %>">
+          <%= p.weighings.last.weight %>
+        <% end %>
+        &nbsp;lbs</td></tr>
 
-      <tr><td><input type="submit" class="submit" name="join" id="join" value="Join Round <%= @round.id %>!"></td></tr>
-    </table>
-    </form>
+        <tr><td><input type="submit" class="submit" name="join" id="join" value="Join Round <%= @round.id %>!"></td></tr>
+      </table>
+      </form>
 
-  </fieldset>
+    </fieldset>
+    <% end %>
+  <% else %>
+
+    <fieldset>
+      <legend>Profile</legend>
+
+      <ol>
+        <li class=""><label>Name:</label><%= @user.name -%></li>
+        <li class=""><label>Email:</label><%= @user.email -%></li>
+      </ol>
+    </fieldset>
+
   <% end %>
 
-  <% if session.user.rounds.size > 1 %>
+  <% if @user.rounds.size > 1 %>
   <fieldset>
     <legend>Previous Rounds</legend>
 
-    <% session.user.rounds(:id.not => @round.id).first.participants(:user_id => session.user.id).each do |p| %>
+    <% @user.rounds(:id.not => @round.id).first.participants(:user_id => @user.id).each do |p| %>
       <table style="width: 30%;">
-        <tr><th>Round:</th><td><%= p.round.id %></td></tr>
+        <tr><th>Round:</th><td><%= link_to p.round.id, "/summary/round/#{p.round.id}" %></td></tr>
         <tr><th>Starting Weight:</th><td><%= p.start_weight %> lbs</td></tr>
         <tr><th>Final Weight:</th><td><%= p.current_weight %> lbs</td></tr>
         <tr><th>Net Loss:</th><td><%= p.net_loss %> lbs</td></tr>

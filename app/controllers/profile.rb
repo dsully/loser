@@ -1,7 +1,19 @@
 class Profile < Application
 
   def index
+    @user = session.user
     render
+  end
+
+  def view
+    # Allow other users to see read only data.
+    if params["id"] and params["id"] != session.user.id
+      @user = User.get(params["id"])
+    end
+
+    @user ||= session.user
+
+    render :template => 'profile/index'
   end
 
   def update

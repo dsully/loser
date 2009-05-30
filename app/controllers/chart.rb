@@ -8,14 +8,8 @@ class Chart < Application
 
   # Show the graph for a single participant (of a round)
   def participant
-    participant = Participant.get(params["id"])
-
-    if participant.user == session.user
-      generate(Array(participant))
-      render :template => 'chart/index'
-    else
-      redirect "/chart"
-    end
+    generate(Array(Participant.get(params["id"])))
+    render :template => 'chart/index'
   end
 
   # Show the graph for a single user, across multiple rounds.

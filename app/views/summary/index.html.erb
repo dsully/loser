@@ -49,7 +49,7 @@
       <% end %>
 
         <td><span id="spark-<%= p.id -%>"></span></td>
-        <td><%= p.user.name -%></td>
+        <td><%= link_to p.user.name, "/profile/view/#{p.user.id}" -%></td>
         <td><%= p.datapoints -%></td>
         <td><%= p.start_weight -%></td>
         <td><%= p.current_weight -%></td>
