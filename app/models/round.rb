@@ -39,7 +39,13 @@ class Round
   end
 
   def days_complete
-    (Date.today - start).to_i
+    today = Date.today
+
+    if today.to_time < (start.to_time + days)
+      (today - start).to_i
+    else
+      days
+    end
   end
 
   def days_remaining

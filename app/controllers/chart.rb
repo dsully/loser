@@ -39,7 +39,9 @@ class Chart < Application
       end
 
       # Start out at 0.
-      records.unshift [ (records.first.first - (1.day.to_i * 1000)), 0 ]
+      if records.size > 0
+        records.unshift [ (records.first.first - (1.day.to_i * 1000)), 0 ]
+      end
 
       @data << {
         "label" => p.user.name,

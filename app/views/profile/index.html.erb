@@ -58,25 +58,27 @@
   <fieldset>
     <legend>Previous Rounds</legend>
 
-    <% @user.rounds(:id.not => @round.id).first.participants(:user_id => @user.id).each do |p| %>
-      <table style="width: 30%;">
-        <tr><th>Round:</th><td><%= link_to p.round.id, "/summary/round/#{p.round.id}" %></td></tr>
-        <tr><th>Starting Weight:</th><td><%= p.start_weight %> lbs</td></tr>
-        <tr><th>Final Weight:</th><td><%= p.current_weight %> lbs</td></tr>
-        <tr><th>Net Loss:</th><td><%= p.net_loss %> lbs</td></tr>
+    <% @user.rounds(:id.not => @round.id).each do |r| %>
+      <% r.participants(:user_id => @user.id).each do |p| %>
+        <table style="width: 30%;">
+          <tr><th>Round:</th><td><%= link_to p.round.id, "/summary/round/#{p.round.id}" %></td></tr>
+          <tr><th>Starting Weight:</th><td><%= p.start_weight %> lbs</td></tr>
+          <tr><th>Final Weight:</th><td><%= p.current_weight %> lbs</td></tr>
+          <tr><th>Net Loss:</th><td><%= p.net_loss %> lbs</td></tr>
 
-        <tr><th>Owed/Paid:</th>
-        <% if p.owed > 0 %>
-          <td class="critical">-$<%= p.owed %></td>
-        <% else %>
-          <td class="ok">$<%= p.payout %></td>
-        <% end %>
-        </tr>
+          <tr><th>Owed/Paid:</th>
+          <% if p.owed > 0 %>
+            <td class="critical">-$<%= p.owed %></td>
+          <% else %>
+            <td class="ok">$<%= p.payout %></td>
+          <% end %>
+          </tr>
 
-        <tr><th>Chart:</th><td><%= link_to 'View', "/chart/participant/#{p.id}" %></td></tr>
-      </table>
+          <tr><th>Chart:</th><td><%= link_to 'View', "/chart/participant/#{p.id}" %></td></tr>
+        </table>
 
-      <div class="vspacer"></div>
+        <div class="vspacer"></div>
+      <% end %>
     <% end %>
 
   </fieldset>
