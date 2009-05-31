@@ -15,7 +15,7 @@
     </fieldset>
 
     <%# Only display if the user isn't in the round, and there's 90% of the round left %>
-    <% if @round.days_remaining_percent > 90 and not @round.participants(:user_id => @user.id).first %>
+    <% if @round.days_complete <= 4 and not @round.participants(:user_id => @user.id).first %>
     <fieldset>
       <legend>Participate</legend>
 

@@ -30,7 +30,15 @@ class Participant
   end
 
   def current_weight
-    @current ||= weighings.last.weight
+    if @current.nil?
+      if datapoints > 0
+        @current = weighings.last.weight
+      else
+        @current = start_weight
+      end
+    end
+
+    @current
   end
 
   def last_weighin_delta
