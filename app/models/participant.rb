@@ -17,9 +17,6 @@ class Participant
 
   validates_with_method :start, :valid_start_weight?
 
-  MAX_OWED = 100
-  MIN_OWED = 0
-
   # These are not query optimized at all.
   def datapoints
     weighings.compact.size
@@ -50,7 +47,10 @@ class Participant
   end
 
   def owed
-    [MIN_OWED, [((round.target - net_loss) * round.ante), MAX_OWED].min].max.to_i
+    max_owed = round.ante * round.target
+    min_owed = 0
+
+    [min_owed, [((round.target - net_loss) * round.ante), max_owed].min].max.to_i
   end
 
   def payout
