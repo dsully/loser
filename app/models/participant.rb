@@ -28,11 +28,7 @@ class Participant
 
   def current_weight
     if @current.nil?
-      if datapoints > 0
-        @current = weighings.last.weight
-      else
-        @current = start_weight
-      end
+      @current = (datapoints > 0) ? weighings.last.weight : start_weight
     end
 
     @current
@@ -44,6 +40,22 @@ class Participant
 
   def net_loss
     (start_weight - current_weight).round_at(2)
+  end
+
+  # Per the mail list - the average of the lowest 3 weights of the last week.
+  def final_weight
+    if round.days_remaining <= 0
+      last_week = (round.start + round.days) - 7
+      weights   = weighings.all(:date.gte => last_week).collect { |w| w.weight }.sort
+
+      if weights.size >= 3
+        (weights[0..2].sum / 3.0).round_at(1)
+      else
+        weighings.last.weight
+      end
+    else
+      "-"
+    end
   end
 
   def owed

@@ -25,13 +25,13 @@
         <% p = Participant.all(:user_id => @user.id).last %>
 
         <tr><th>Round <%= @round.id %> started on:</th><td><%= @round.start %>.</td></tr>
-        <tr><th>Your starting weight:</th><td>
+        <tr><th>Your starting weight (see rules):</th><td>
 
         <% if p.nil? %>
           <input type="text" class="text-input" size="5" name="start" value="">
         <% else %>
-          <input type="hidden" name="start" value="<%= p.weighings.last.weight %>">
-          <%= p.weighings.last.weight %>
+          <input type="hidden" name="start" value="<%= p.final_weight %>">
+          <%= p.final_weight %>
         <% end %>
         &nbsp;lbs</td></tr>
 
@@ -63,7 +63,7 @@
         <table style="width: 30%;">
           <tr><th>Round:</th><td><%= link_to p.round.id, "/summary/round/#{p.round.id}" %></td></tr>
           <tr><th>Starting Weight:</th><td><%= p.start_weight %> lbs</td></tr>
-          <tr><th>Final Weight:</th><td><%= p.current_weight %> lbs</td></tr>
+          <tr><th>Final Weight:</th><td><%= p.final_weight %> lbs</td></tr>
           <tr><th>Net Loss:</th><td><%= p.net_loss %> lbs</td></tr>
 
           <tr><th>Owed/Paid:</th>
