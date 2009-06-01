@@ -8,7 +8,7 @@
     </tr></thead>
 
     <tbody>
-      <% (0..@round.days_complete).each do |i| %>
+      <% (0..(@round.days_complete - 1)).each do |i| %>
         <tr>
           <% date = (@round.start.to_time + i.days).strftime("%Y-%m-%d") %>
 
@@ -22,7 +22,7 @@
               <% value = "" %>
             <% end %>
 
-            <% if p.user == session.user %>
+            <% if p.user == session.user and not @round.finished? %>
               <input type="text" class="text-input" size="5" name="weighings[<%= date %>]" value="<%= value %>">
             <% else %>
               <%= value %>

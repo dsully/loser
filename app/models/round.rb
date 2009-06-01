@@ -38,14 +38,12 @@ class Round
     weeks * 7
   end
 
-  def days_complete
-    today = Date.today
+  def finished?
+    Date.today > (start + days - 1)
+  end
 
-    if today.to_time < (start.to_time + days)
-      (today - start).to_i
-    else
-      days
-    end
+  def days_complete
+    finished? ? days : (Date.today - start).to_i
   end
 
   def days_remaining
