@@ -1,13 +1,28 @@
 class Weighings < Application
 
   def index
-    @dates = Hash.new
+    populate
+  end
+
+  # If a specific round was specified.
+  def round
+    if params["id"] and @round.id != params["id"]
+      @round = Round.get(params["id"])
+    end
+
+    populate
+  end
+
+  # Called by both index & round above.
+  def populate
+    @round ||= CurrentRound.instance
+    @dates   = Hash.new
 
     @round.weighings.each do |w|
       (@dates[w.ymd] ||= {})[w.participant.id] = w.weight
     end
 
-    render
+    render :template => 'weighings/index'
   end
 
   def update

@@ -1,7 +1,7 @@
 class Summary < Application
 
   def index
-    render
+    populate
   end
 
   def round
@@ -9,6 +9,10 @@ class Summary < Application
       @round = Round.get(params["id"])
     end
 
+    populate
+  end
+
+  def populate
     @round ||= CurrentRound.instance
 
     render :template => 'summary/index'
