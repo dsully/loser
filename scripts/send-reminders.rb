@@ -14,7 +14,7 @@ def main
         :from    => SENDER,
         :to      => p.user.email,
         :subject => "MoneyDown: Hey - you've not entered your weight in a while.."
-      }, { :user => p.user })
+      }, { :participant => p })
 
       Merb.logger.info("Sent reminder email to: #{p.user.email}")
     end

@@ -4,4 +4,4 @@ export MERB_ENV=production
 
 path=$(cd ${0%/*}/.. && echo $PWD)
 
-/var/lib/gems/1.8/bin/merb -r "${path}/scripts/${1}.rb"
+cd /www/loser.zeep.org && /var/lib/gems/1.8/bin/merb -r "${path}/scripts/${1}.rb"
