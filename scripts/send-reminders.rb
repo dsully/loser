@@ -10,13 +10,13 @@ def main
   CurrentRound.instance.participants.each do |p|
 
     if p.last_weighin_delta > DAYS
+      Merb.logger.info("Sent reminder email to: #{p.user.email}")
+
       send_mail(ReminderMailer, :notify, {
         :from    => SENDER,
         :to      => p.user.email,
         :subject => "MoneyDown: Hey - you've not entered your weight in a while.."
       }, { :participant => p })
-
-      Merb.logger.info("Sent reminder email to: #{p.user.email}")
     end
   end
 end
