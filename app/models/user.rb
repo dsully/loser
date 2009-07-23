@@ -19,6 +19,19 @@ class User
   has n, :weighings, :order => [ :date ]
   has n, :rounds, :through => :weighings, :mutable => true
 
+  # Method for Chart to treat participants and users the same.
+  def user
+    self
+  end
+
+  def start_weight
+    @start_weight ||= weighings.first.weight
+  end
+
+  def <=>(o)
+    self.name <=> o.name
+  end
+
   def export
     exported = {}
 

@@ -6,6 +6,12 @@ class Chart < Application
     render
   end
 
+  # Show the graph since round 1.
+  def origin
+    generate(User.all)
+    render :template => 'chart/index'
+  end
+
   # Show the graph for a single participant (of a round)
   def participant
     generate(Array(Participant.get(params["id"])))
@@ -33,8 +39,9 @@ class Chart < Application
     @data = []
 
     participants.sort.each do |p|
+
+      # Javascript needs the timestamps in milliseconds.
       records = p.weighings.collect do |w|
-        # Javascript needs the timestamps in milliseconds.
         [ w.date.to_time.to_i * 1000, (w.weight - p.start_weight).round_at(2) ]
       end
 
