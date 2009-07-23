@@ -18,4 +18,33 @@ class User
 
   has n, :weighings, :order => [ :date ]
   has n, :rounds, :through => :weighings, :mutable => true
+
+  def export
+    exported = {}
+
+    exported["user"] = {}
+    exported["user"]["name"]  = self.name
+    exported["user"]["login"] = self.login
+    exported["user"]["email"] = self.email
+
+    exported["rounds"] = {}
+
+    self.rounds.each do |round|
+
+      exported["rounds"][round.id] = {}
+      exported["rounds"][round.id]["start"]  = round.start
+      exported["rounds"][round.id]["weeks"]  = round.weeks
+      exported["rounds"][round.id]["ante"]   = round.ante
+      exported["rounds"][round.id]["target"] = round.target
+
+      exported["rounds"][round.id]["weighings"] = {}
+
+      round.weighings.each do |w|
+        exported["rounds"][round.id]["weighings"][w.ymd] = w.weight
+      end
+    end
+
+    exported
+  end
+
 end

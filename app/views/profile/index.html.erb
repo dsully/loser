@@ -83,4 +83,13 @@
 
   </fieldset>
   <% end %>
+
+  <fieldset>
+    <legend>Export Data</legend>
+
+    <table style="width: 30%;">
+      <tr><th>Download:</th><td><%= link_to "YAML", "/profile/export.yaml" %>, <%= link_to "JSON", "/profile/export.json" %></td></tr>
+    </table>
+  </fieldset>
+
 </div>

@@ -58,4 +58,13 @@ class Profile < Application
 
     redirect "/profile", :message => { :notice => "Joined round #{@round.id}!" }
   end
+
+  def export
+    provides :yaml, :json
+
+    @user ||= session.user
+    @data = @user.export
+
+    display @data, :layout => false, :disposition => :inline
+  end
 end
