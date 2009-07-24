@@ -7,7 +7,7 @@ class Chart < Application
   end
 
   # Show the graph since round 1.
-  def origin
+  def all_rounds
     generate(User.all)
     render :template => 'chart/index'
   end

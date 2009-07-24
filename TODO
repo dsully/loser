@@ -1,8 +1,5 @@
 Admin:
-    * User deletion
     * Allow switching between loss & keep-it-off bets per user. 
 
 General
-    * Graph legend fixes
-    * Graph selection checkboxes
     * Paid toggle should fit into calculations.

@@ -1,8 +1,11 @@
 <div>
   <table>
+    <tr><td></td></tr>
     <tr>
       <td valign="top">
-        <div id="choicesX"></div>
+        <table>
+          <div id="choices"></div>
+        </table>
         <div id="legend" style="width:70px;height:200px;"></div>
       </td>
       <td>
@@ -17,9 +20,9 @@
 
     var graphOptions  = {
       lines: { show: true },
-      points: { show: true },
+      points: { show: false },
       legend: {
-        show: true,
+        show: false,
         noColumns: 1,
         container: $("#legend"),
       },
@@ -86,7 +89,7 @@
     var choiceContainer = $("#choices");
 
     $.each(records, function(key, val) {
-      choiceContainer.append('<br/><input type="checkbox" name="' + key + '" checked="checked" >' + val.label + '</input>');
+      choiceContainer.append('<tr><td><input type="checkbox" name="' + key + '" checked="checked"></td><td>' + val.label + '</td></tr></input>');
     });
 
     choiceContainer.find("input").click(plotAccordingToChoices);
@@ -106,7 +109,7 @@
       }
     }
 
-    //plotAccordingToChoices();
-    $.plot($("#chart"), records, graphOptions);
+    plotAccordingToChoices();
+    //$.plot($("#chart"), records, graphOptions);
   </script>
 </div>
