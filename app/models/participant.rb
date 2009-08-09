@@ -39,7 +39,11 @@ class Participant
   end
 
   def net_loss
-    (start_weight - current_weight).round_at(2)
+    if round.days_remaining > 0
+      (start_weight - current_weight).round_at(2)
+    else
+      (start_weight - final_weight).round_at(2)
+    end
   end
 
   # Per the mail list - the average of the lowest 3 weights of the last week.
