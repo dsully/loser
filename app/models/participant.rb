@@ -46,7 +46,11 @@ class Participant
   def final_weight
     if round.days_remaining <= 0
       last_week = (round.start + round.days) - 7
-      weights   = weighings.all(:date.gte => last_week).collect { |w| w.weight }.sort
+
+      # DataMapper bug: If 'weighings.all(:date ...)' is called, any calls to
+      # weighings.* after it will use the cached data from this call. So force
+      # a call to the class directly instead of the relationship.
+      weights   = Weighing.all(:participant_id => self.id, :date.gte => last_week).collect { |w| w.weight }.sort
 
       if weights.size >= 3
         (weights[0..2].sum / 3.0).round_at(1)
