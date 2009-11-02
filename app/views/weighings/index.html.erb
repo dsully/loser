@@ -10,7 +10,7 @@
     <tbody>
       <% (0..@round.days_complete).each do |i| %>
         <tr>
-          <% date = (@round.start.to_time + i.days).strftime("%Y-%m-%d") %>
+          <% date = (@round.start + i).strftime("%Y-%m-%d") %>
 
           <td><%= date %></td>
 

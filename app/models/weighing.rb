@@ -14,7 +14,7 @@ class Weighing
   validates_with_method :weight, :method => :validate_weight
 
   def ymd
-    date.to_time.strftime("%Y-%m-%d")
+    date.strftime("%Y-%m-%d")
   end
 
   protected
