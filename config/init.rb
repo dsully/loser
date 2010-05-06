@@ -1,6 +1,6 @@
 # Go to http://wiki.merbivore.com/pages/init-rb
 
-require 'config/dependencies.rb'
+# Specify your dependencies in the Gemfile
 
 use_orm :datamapper
 use_test :rspec

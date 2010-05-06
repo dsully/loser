@@ -1,7 +1,7 @@
 class Weighings < Application
 
   def index
-    populate
+    populate_weighings
   end
 
   # If a specific round was specified.
@@ -10,11 +10,11 @@ class Weighings < Application
       @round = Round.get(params["id"])
     end
 
-    populate
+    populate_weighings
   end
 
   # Called by both index & round above.
-  def populate
+  def populate_weighings
     @round ||= CurrentRound.instance
     @dates   = Hash.new
 

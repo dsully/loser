@@ -4,7 +4,7 @@ class Weighing
 
   property :id,     Serial
   property :date,   Date,  :index  => true
-  property :weight, Float, :nullable => true
+  property :weight, Float, :required => true
 
   belongs_to :user
   belongs_to :round
