@@ -11,8 +11,8 @@ class User
     :format    => "Doesn't look like an email address to me ..."
   }
 
-  validates_present :name
-  validates_present :login
+  validates_presence_of :name
+  validates_presence_of :login
 
   property :admin,  Boolean, :default => false
 
