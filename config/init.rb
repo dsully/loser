@@ -17,7 +17,6 @@ end
 
 Merb::BootLoader.before_app_loads do
   # This will get executed after dependencies have been loaded but before your app's classes have loaded.
-  require 'facets/duration'
   require 'facets/enumerable/sum'
   require 'facets/numeric/round'
   require 'facets/date'
